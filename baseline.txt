@@ -1,0 +1,4 @@
+Model: Qwen2.5-1.5B
+Dataset Size: 500 (452 after cleaning)
+Benchmark Size: 100
+Accuracy: 36%

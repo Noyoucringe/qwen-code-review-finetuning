@@ -1,0 +1,4 @@
+Model: Qwen2.5-1.5BB
+Dataset Size: 500 (452 after cleaning and LoRA)
+Benchmark Size: 100
+Accuracy: 72%
