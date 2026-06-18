@@ -1,6 +1,6 @@
 # AI Code Reviewer - LoRA Fine-Tuning Project
+<img width="228" height="510" alt="image" src="https://github.com/user-attachments/assets/4f106ac2-a026-4dab-a4d8-51bddee53ec7" />
 
-![file structure](image.png)
 ## Overview
 
 AI Code Reviewer is a custom fine-tuned Large Language Model (LLM) designed to identify bugs in source code and provide explanations for why they occur.
@@ -109,7 +109,8 @@ lora_dropout = 0.05
 ```
 
 ### Training Settings
-![Fine-tuned model output](image-1.png)
+<img width="1337" height="305" alt="image" src="https://github.com/user-attachments/assets/4136018a-d5ea-431a-913d-a6641c66a4c3" />
+
 
 ```python
 Epochs: 2
