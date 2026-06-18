@@ -1,0 +1,602 @@
+[
+	{
+		"id": 1,
+		"language": "Python",
+		"code": "def process_logs(log_line):\n    try:\n        return int(log_line.split(':')[1])\n    except ValueError:\n        return -1\n    finally:\n        return 0",
+		"expected": "String.split() takes a regular expression. '.' is a regex wildcard matching any character, resulting in an empty array. Escape it using \"\\\\.\"."
+	},
+	{
+		"id": 2,
+		"language": "Python",
+		"code": "active_sessions = ['sess_1', 'sess_2', 'sess_3']\nfor session in active_sessions:\n    if is_expired(session):\n        active_sessions.remove(session)",
+		"expected": "Modifying a list while iterating over it causes the iterator to skip elements."
+	},
+	{
+		"id": 3,
+		"language": "Python",
+		"code": "def parse_configuration(config_val):\n    if isinstance(config_val, [int, float]):\n        return float(config_val)\n    return 0.0",
+		"expected": "isinstance expects a tuple of types, not a list. Passing a list raises a TypeError."
+	},
+	{
+		"id": 4,
+		"language": "Python",
+		"code": "def check_access(user_role):\n    if user_role is \"administrator\":\n        grant_access()\n    else:\n        deny_access()",
+		"expected": "Using 'is' for string comparison checks object identity, not equality. It can fail if strings are not interned; use '==' instead."
+	},
+	{
+		"id": 5,
+		"language": "Python",
+		"code": "def extract_filename(file_path):\n    clean_path = file_path.strip(\".csv\")\n    return clean_path",
+		"expected": "strip() removes any characters in the provided string from both ends, not the exact substring. Use removesuffix() instead."
+	},
+	{
+		"id": 6,
+		"language": "Python",
+		"code": "def clone_mapping(dict):\n    new_mapping = dict.copy()\n    return new_mapping",
+		"expected": "Shadowing the built-in 'dict' type. If 'dict()' is called elsewhere in the scope, it will raise an error."
+	},
+	{
+		"id": 7,
+		"language": "Python",
+		"code": "def find_target(data_stream):\n    while True:\n        break\n        process_stream(data_stream)",
+		"expected": "Unreachable code: process_stream will never execute because of the unconditional break statement preceding it."
+	},
+	{
+		"id": 8,
+		"language": "Python",
+		"code": "flag_mapping = {\n    1: \"enabled\",\n    True: \"active\",\n    0: \"disabled\"\n}\nprint(flag_mapping[1])",
+		"expected": "Dictionary key collision: In Python, True evaluates to 1, so the key 'True' overwrites the key '1'."
+	},
+	{
+		"id": 9,
+		"language": "Python",
+		"code": "from datetime import datetime\ndef is_past_due(due_date):\n    current_time = datetime.utcnow()\n    return due_date < current_time",
+		"expected": "Comparing timezone-aware datetimes with timezone-naive datetimes (from utcnow) raises a TypeError."
+	},
+	{
+		"id": 10,
+		"language": "Python",
+		"code": "import re\ndef detect_critical(log_text):\n    if re.match(\"CRITICAL\", log_text):\n        alert_admin()\n    return",
+		"expected": "re.match only checks the beginning of the string. If 'CRITICAL' appears in the middle, it will be missed. Use re.search instead."
+	},
+	{
+		"id": 11,
+		"language": "Python",
+		"code": "def create_multipliers():\n    multipliers = []\n    for i in range(5):\n        multipliers.append(lambda x: x * i)\n    return multipliers",
+		"expected": "Late binding in lambda closures: all lambdas will reference the final value of i (which is 4) when executed."
+	},
+	{
+		"id": 12,
+		"language": "Python",
+		"code": "import math\ndef compute_distance(velocity_x, velocity_y):\n    distance = math.sqrt(velocity_x**2 - velocity_y**2)\n    return distance",
+		"expected": "If velocity_y is greater than velocity_x, the argument to sqrt becomes negative, raising a ValueError."
+	},
+	{
+		"id": 13,
+		"language": "Python",
+		"code": "lines = (line.strip() for line in open('data.txt'))\nlist_a = list(lines)\nlist_b = list(lines)",
+		"expected": "Generator exhaustion: list_b will be empty because the generator 'lines' is completely consumed after creating list_a."
+	},
+	{
+		"id": 14,
+		"language": "Python",
+		"code": "def init_matrix(rows):\n    matrix = dict.fromkeys(rows, [])\n    matrix[rows[0]].append('START')\n    return matrix",
+		"expected": "dict.fromkeys with a mutable default ([]) assigns the exact same list reference to all keys. Modifying one modifies all."
+	},
+	{
+		"id": 15,
+		"language": "Python",
+		"code": "def execute_task():\n    try:\n        perform_operation()\n    except Exception:\n        print(\"Task failed\")\n        raise Exception(\"Operation encountered an error\")",
+		"expected": "Raising a generic new Exception destroys the original stack trace, making debugging the root cause extremely difficult."
+	},
+	{
+		"id": 16,
+		"language": "Python",
+		"code": "import json\nfrom datetime import datetime\ndef serialize_event(event_name):\n    payload = {\"event\": event_name, \"time\": datetime.now()}\n    return json.dumps(payload)",
+		"expected": "datetime objects are not JSON serializable by default. json.dumps will raise a TypeError."
+	},
+	{
+		"id": 17,
+		"language": "Python",
+		"code": "def combine_data(headers, row_values):\n    combined = dict(zip(headers, row_values))\n    return combined",
+		"expected": "zip silently truncates the output to the shortest iterable. If lengths mismatch, data is lost without warning."
+	},
+	{
+		"id": 18,
+		"language": "Python",
+		"code": "request_count = 0\ndef increment_requests():\n    request_count += 1\n    return request_count",
+		"expected": "UnboundLocalError: assigning to request_count creates a local variable that shadows the global one, but it is read before assignment."
+	},
+	{
+		"id": 19,
+		"language": "Python",
+		"code": "def filter_records(user_input_filter, records):\n    query_logic = eval(user_input_filter)\n    return [r for r in records if query_logic(r)]",
+		"expected": "Security vulnerability: using eval() on untrusted user input allows arbitrary code execution (RCE)."
+	},
+	{
+		"id": 20,
+		"language": "Python",
+		"code": "def save_audit(msg):\n    open('audit_log.txt', 'a').write(msg)\n    return True",
+		"expected": "Resource leak: The file handle is never explicitly closed. In CPython it may close on garbage collection, but it's not guaranteed across implementations."
+	},
+	{
+		"id": 21,
+		"language": "Python",
+		"code": "import asyncio\nimport time\nasync def fetch_remote_data():\n    time.sleep(2)\n    return {\"status\": \"success\"}",
+		"expected": "Using synchronous time.sleep() in an async function blocks the entire event loop. It should be await asyncio.sleep()."
+	},
+	{
+		"id": 22,
+		"language": "Python",
+		"code": "def process_payment(transaction):\n    assert transaction.is_verified, \"Unverified transaction\"\n    execute_transfer(transaction)",
+		"expected": "Security bug: assert statements are completely stripped out when Python is run in optimized mode (-O), bypassing the authorization check."
+	},
+	{
+		"id": 23,
+		"language": "Python",
+		"code": "settings = ([1, 2], 'admin')\ndef add_permission(perm):\n    settings[0] += [perm]",
+		"expected": "Tuple mutation edge case: The list is extended, but then a TypeError is raised when attempting to reassign the list back to the immutable tuple."
+	},
+	{
+		"id": 24,
+		"language": "Python",
+		"code": "import asyncio\nasync def fetch_all(urls):\n    results = [await fetch_url(u) for u in urls]\n    return results",
+		"expected": "Performance bug: using await inside a list comprehension runs the coroutines sequentially, defeating the purpose of asynchronous concurrency."
+	},
+	{
+		"id": 25,
+		"language": "Python",
+		"code": "import threading\nfrom contextlib import contextmanager\nlock = threading.Lock()\n@contextmanager\ndef acquire_safely():\n    lock.acquire()\n    yield\n    lock.release()",
+		"expected": "If the code inside the 'with' block raises an exception, the yield statement throws it, and lock.release() is never executed, causing a deadlock."
+	},
+	{
+		"id": 26,
+		"language": "Java",
+		"code": "public boolean verifyRole(String currentRole) {\n    if (currentRole == \"SUPERUSER\") {\n        return true;\n    }\n    return false;\n}",
+		"expected": "Using '==' compares object references instead of string content. Use currentRole.equals(\"SUPERUSER\") instead."
+	},
+	{
+		"id": 27,
+		"language": "Java",
+		"code": "public void handleState(int state) {\n    switch (state) {\n        case 1:\n            initSystem();\n        case 2:\n            shutdownSystem();\n    }\n}",
+		"expected": "Missing break statements cause fallthrough logic. If state is 1, both initSystem and shutdownSystem will execute."
+	},
+	{
+		"id": 28,
+		"language": "Java",
+		"code": "public void compareLimits(Integer limit1, Integer limit2) {\n    if (limit1 == limit2) {\n        System.out.println(\"Limits match\");\n    }\n}",
+		"expected": "Integer caching only applies to values -128 to 127. For larger numbers, '==' compares object references and returns false even if values are equal."
+	},
+	{
+		"id": 29,
+		"language": "Java",
+		"code": "public boolean isConfirmed(String userInput) {\n    if (userInput.equals(\"CONFIRM\")) {\n        return true;\n    }\n    return false;\n}",
+		"expected": "If userInput is null, this throws a NullPointerException. It should be \"CONFIRM\".equals(userInput)."
+	},
+	{
+		"id": 30,
+		"language": "Java",
+		"code": "public void filterAnomalies(List data) {\n    Iterator it = data.iterator();\n    while (it.hasNext()) {\n        if (it.next().isAnomalous()) {\n            data.remove(it.next());\n        }\n    }\n}",
+		"expected": "Calling it.next() twice inside the loop advances the iterator twice, skipping elements and potentially throwing NoSuchElementException."
+	},
+	{
+		"id": 31,
+		"language": "Java",
+		"code": "public void calculateDifference() {\n    float initial = 1.0f;\n    float reduction = 0.9f;\n    System.out.println(initial - reduction);\n}",
+		"expected": "Floating point precision loss: 1.0f - 0.9f will not exactly equal 0.1. Use BigDecimal for precise calculations."
+	},
+	{
+		"id": 32,
+		"language": "Java",
+		"code": "public int getPositiveHash(int hashValue) {\n    int positiveHash = Math.abs(hashValue);\n    return positiveHash % 100;\n}",
+		"expected": "Math.abs(Integer.MIN_VALUE) returns a negative number due to integer overflow, which can cause downstream logic to fail."
+	},
+	{
+		"id": 33,
+		"language": "Java",
+		"code": "public void executeAsync(Runnable task) {\n    Thread workerThread = new Thread(task);\n    workerThread.run();\n}",
+		"expected": "Calling .run() directly executes the task synchronously on the current thread. Use .start() to execute asynchronously."
+	},
+	{
+		"id": 34,
+		"language": "Java",
+		"code": "public class DateFormatterUtil {\n    private static final SimpleDateFormat fmt = new SimpleDateFormat(\"yyyy-MM-dd\");\n    public static String format(Date d) {\n        return fmt.format(d);\n    }\n}",
+		"expected": "SimpleDateFormat is not thread-safe. Using a shared static instance across multiple threads causes race conditions and corrupted output."
+	},
+	{
+		"id": 35,
+		"language": "Java",
+		"code": "public void clearCompleted(List activeTasks) {\n    for (Task t : activeTasks) {\n        if (t.isDone()) {\n            activeTasks.remove(t);\n        }\n    }\n}",
+		"expected": "Modifying a collection during a foreach iteration throws a ConcurrentModificationException. Use an Iterator or removeIf()."
+	},
+	{
+		"id": 36,
+		"language": "Java",
+		"code": "public void auditTransactions(List txList) {\n    txList.stream()\n          .filter(t -> t.getAmount() > 10000)\n          .peek(t -> flagForReview(t));\n}",
+		"expected": "Streams are lazy. Without a terminal operation (like .collect or .forEach), the stream pipeline will never actually execute."
+	},
+	{
+		"id": 37,
+		"language": "Java",
+		"code": "public class Registry {\n    private static Registry instance;\n    public static Registry getInstance() {\n        if (instance == null) {\n            synchronized (Registry.class) {\n                if (instance == null) instance = new Registry();\n            }\n        }\n        return instance;\n    }\n}",
+		"expected": "Double-checked locking requires the instance variable to be declared 'volatile' to prevent threads from seeing a partially constructed object."
+	},
+	{
+		"id": 38,
+		"language": "Java",
+		"code": "public String fetchUserName(UserRepository repo, String id) {\n    Optional optUser = repo.findById(id);\n    return optUser.get().getName();\n}",
+		"expected": "Calling Optional.get() without checking isPresent() first will throw a NoSuchElementException if the value is empty."
+	},
+	{
+		"id": 39,
+		"language": "Java",
+		"code": "public String[] parseIpAddress(String ipAddress) {\n    String[] octets = ipAddress.split(\".\");\n    return octets;\n}",
+		"expected": "String.split() takes a regular expression. '.' is a regex wildcard matching any character, resulting in an empty array. Escape the dot using \\\."
+	},
+	{
+		"id": 40,
+		"language": "Java",
+		"code": "public void updateModes() {\n    List modes = Arrays.asList(\"READ\", \"WRITE\");\n    modes.add(\"EXECUTE\");\n}",
+		"expected": "Arrays.asList() returns a fixed-size list backed by the array. Calling add() throws an UnsupportedOperationException."
+	},
+	{
+		"id": 41,
+		"language": "Java",
+		"code": "public void processLargeBatch(List source, List toRemove) {\n    source.removeAll(toRemove);\n}",
+		"expected": "Performance bug: If 'toRemove' is a large List, removeAll executes in O(N*M) time. toRemove should be converted to a HashSet first."
+	},
+	{
+		"id": 42,
+		"language": "Java",
+		"code": "class Profile {\n    String id;\n    @Override\n    public boolean equals(Object o) {\n        if (this == o) return true;\n        if (!(o instanceof Profile)) return false;\n        return id.equals(((Profile) o).id);\n    }\n}",
+		"expected": "Overriding equals() without overriding hashCode() violates the general contract, causing hash-based collections (HashMap, HashSet) to fail."
+	},
+	{
+		"id": 43,
+		"language": "Java",
+		"code": "public void parseFile(File file) throws IOException {\n    FileInputStream fis = new FileInputStream(file);\n    int data = fis.read();\n    System.out.println(data);\n}",
+		"expected": "Resource leak: The FileInputStream is never closed. If an exception occurs, the file handle remains open. Use a try-with-resources block."
+	},
+	{
+		"id": 44,
+		"language": "Java",
+		"code": "public void waitForSignal() throws InterruptedException {\n    synchronized(this) {\n        if (!signalReceived) {\n            this.wait();\n        }\n    }\n}",
+		"expected": "Spurious wakeup vulnerability: Threads can wake up without notify(). wait() should always be inside a while loop checking the condition."
+	},
+	{
+		"id": 45,
+		"language": "Java",
+		"code": "public class SessionContext {\n    private static ThreadLocal userToken = new ThreadLocal<>();\n    public void setToken(String token) {\n        userToken.set(token);\n    }\n}",
+		"expected": "ThreadLocal memory leak/data bleed: In environments with thread pools, failing to call remove() means subsequent requests might read previous tokens."
+	},
+	{
+		"id": 46,
+		"language": "Java",
+		"code": "public void transfer(Account a, Account b, double amt) {\n    synchronized(a) {\n        synchronized(b) {\n            a.withdraw(amt);\n            b.deposit(amt);\n        }\n    }\n}",
+		"expected": "Deadlock risk: If thread 1 transfers A to B and thread 2 transfers B to A simultaneously, they will wait on each other's locks forever."
+	},
+	{
+		"id": 47,
+		"language": "Java",
+		"code": "public void updateConfig(ConcurrentHashMap<String, String> map, String key) {\n    map.computeIfAbsent(key, k -> map.put(k, \"DEFAULT\"));\n}",
+		"expected": "Recursive update inside computeIfAbsent on a ConcurrentHashMap causes an IllegalStateException or an infinite loop."
+	},
+	{
+		"id": 48,
+		"language": "Java",
+		"code": "public void updateRecord(Lock lock) {\n    lock.lock();\n    performDatabaseUpdate();\n    lock.unlock();\n}",
+		"expected": "If performDatabaseUpdate() throws an exception, unlock() is never called, causing a permanent deadlock. unlock() must be in a finally block."
+	},
+	{
+		"id": 49,
+		"language": "Java",
+		"code": "public void cacheResult(ConcurrentHashMap<String, Object> cache, String key, Object result) {\n    cache.put(key, result);\n}",
+		"expected": "If 'result' is null, ConcurrentHashMap throws a NullPointerException, unlike standard HashMap."
+	},
+	{
+		"id": 50,
+		"language": "Java",
+		"code": "public  T[] createArray(int size) {\n    T[] arr = (T[]) new Object[size];\n    return arr;\n}",
+		"expected": "Type erasure causes (T[]) new Object[] to remain an Object array at runtime, throwing a ClassCastException when cast to the generic type."
+	},
+	{
+		"id": 51,
+		"language": "SQL",
+		"code": "SELECT d.department_name, e.employee_name\nFROM Departments d, Employees e\nWHERE d.is_active = 1;",
+		"expected": "Missing a JOIN condition between Departments and Employees results in a massive Cartesian product (cross join)."
+	},
+	{
+		"id": 52,
+		"language": "SQL",
+		"code": "SELECT COUNT(manager_id)\nFROM Employees\nWHERE department = 'Sales';",
+		"expected": "COUNT(column) ignores rows where the column is NULL, yielding an inaccurate count of total employees in the department."
+	},
+	{
+		"id": 53,
+		"language": "SQL",
+		"code": "UPDATE Subscriptions\nSET status = 'CANCELLED';\nCOMMIT;",
+		"expected": "Missing a WHERE clause in the UPDATE statement will overwrite the status for every single row in the table."
+	},
+	{
+		"id": 54,
+		"language": "SQL",
+		"code": "SELECT department, job_title, MAX(salary)\nFROM Employees\nGROUP BY department;",
+		"expected": "Unaggregated column error: 'job_title' is selected but not included in the GROUP BY clause or wrapped in an aggregate function."
+	},
+	{
+		"id": 55,
+		"language": "SQL",
+		"code": "SELECT * \nFROM AuditLogs\nWHERE message LIKE '*CRITICAL ERROR*';",
+		"expected": "Incorrect wildcard character: SQL uses '%' for multi-character wildcards, not '*'. This queries for literal asterisks."
+	},
+	{
+		"id": 56,
+		"language": "SQL",
+		"code": "SELECT first_name, last_name, email\nFROM Users\nORDER BY 1, 2;",
+		"expected": "Positional ordering (ORDER BY 1, 2) is brittle and breaks silently if columns are added or reordered in the SELECT clause."
+	},
+	{
+		"id": 57,
+		"language": "SQL",
+		"code": "SELECT user_id\nFROM ActiveUsers\nWHERE user_id NOT IN (SELECT banned_by FROM BanRecords);",
+		"expected": "If the subquery returns even a single NULL value, the entire NOT IN condition evaluates to UNKNOWN, returning zero rows."
+	},
+	{
+		"id": 58,
+		"language": "SQL",
+		"code": "SELECT u.id, p.bio\nFROM Users u\nLEFT JOIN Profiles p ON u.id = p.user_id\nWHERE p.is_visible = 1;",
+		"expected": "Filtering on the right table (Profiles) in the WHERE clause transforms the LEFT JOIN into an INNER JOIN, dropping users without profiles."
+	},
+	{
+		"id": 59,
+		"language": "SQL",
+		"code": "SELECT transaction_id\nFROM Transactions\nWHERE YEAR(created_at) = 2024;",
+		"expected": "Non-sargable condition: wrapping an indexed column in a function (YEAR) forces a full table scan instead of an index seek."
+	},
+	{
+		"id": 60,
+		"language": "SQL",
+		"code": "SELECT email FROM InternalUsers\nUNION\nSELECT email FROM ExternalUsers;",
+		"expected": "Performance bug: UNION performs an expensive distinct sort to remove duplicates. UNION ALL should be used if duplicates are impossible or acceptable."
+	},
+	{
+		"id": 61,
+		"language": "SQL",
+		"code": "SELECT order_id\nFROM Orders\nWHERE order_date BETWEEN '2024-01-01' AND '2024-01-31';",
+		"expected": "BETWEEN truncates datetime comparisons to midnight. Any order placed on Jan 31 after 00:00:00 will be incorrectly excluded."
+	},
+	{
+		"id": 62,
+		"language": "SQL",
+		"code": "SELECT name,\n       (SELECT MAX(score) FROM Games g WHERE g.user_id = u.id) AS top_score\nFROM Users u;",
+		"expected": "Performance bug: A correlated subquery in the SELECT list causes N+1 execution overhead, running the inner query for every outer row."
+	},
+	{
+		"id": 63,
+		"language": "SQL",
+		"code": "SELECT region, SUM(revenue)\nFROM Sales\nGROUP BY region\nHAVING region = 'NorthAmerica';",
+		"expected": "Performance bug: Filtering unaggregated columns in the HAVING clause filters rows after the expensive aggregation step instead of before in a WHERE clause."
+	},
+	{
+		"id": 64,
+		"language": "SQL",
+		"code": "SELECT customer_name\nFROM Customers\nWHERE phone_number = 8005551234;",
+		"expected": "Implicit type conversion: comparing a VARCHAR column to an INT literal forces the DB to convert the column, bypassing indexes and causing a table scan."
+	},
+	{
+		"id": 65,
+		"language": "SQL",
+		"code": "SELECT event_data \nFROM TrackingData \nORDER BY created_at \nOFFSET 1000000 LIMIT 50;",
+		"expected": "Deep pagination performance penalty: The DB must retrieve and discard 1,000,000 rows. Keyset pagination (WHERE id > X) should be used."
+	},
+	{
+		"id": 66,
+		"language": "SQL",
+		"code": "SELECT employee_id\nFROM Employees\nWHERE department_id = (SELECT id FROM Departments WHERE location = 'NY');",
+		"expected": "If there are multiple departments in NY, the subquery returns multiple rows, causing the scalar equality operator (=) to crash."
+	},
+	{
+		"id": 67,
+		"language": "SQL",
+		"code": "SELECT account_id, CAST(balance AS FLOAT) * 1.05 AS projected_balance\nFROM Financials;",
+		"expected": "Using FLOAT for financial calculations introduces floating-point precision errors. DECIMAL or NUMERIC should be used."
+	},
+	{
+		"id": 68,
+		"language": "SQL",
+		"code": "SELECT vendor_id, SUM(amount)\nFROM Invoices\nWHERE SUM(amount) > 1000\nGROUP BY vendor_id;",
+		"expected": "Syntax error: Aggregate functions like SUM() cannot be used in the WHERE clause. They must be evaluated in the HAVING clause."
+	},
+	{
+		"id": 69,
+		"language": "SQL",
+		"code": "INSERT INTO Products (product_id, name, price)\nVALUES (101, 'Widget', 19.99);",
+		"expected": "If product_id is an auto-incrementing/IDENTITY column, explicitly inserting a value will fail unless identity insert is temporarily enabled."
+	},
+	{
+		"id": 70,
+		"language": "SQL",
+		"code": "SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;\nSELECT SUM(total) FROM PendingOrders;",
+		"expected": "READ UNCOMMITTED allows dirty reads. The query might aggregate data from concurrent transactions that are later rolled back."
+	},
+	{
+		"id": 71,
+		"language": "SQL",
+		"code": "WITH RecursiveCounter AS (\n    SELECT 1 AS n\n    UNION ALL\n    SELECT n + 1 FROM RecursiveCounter\n)\nSELECT * FROM RecursiveCounter;",
+		"expected": "Infinite loop: The recursive CTE lacks a termination condition (e.g., WHERE n < 100), which will cause a memory limit crash."
+	},
+	{
+		"id": 72,
+		"language": "SQL",
+		"code": "SELECT user_id\nFROM Users\nWHERE first_name = 'Alice' OR last_name = 'Smith';",
+		"expected": "Performance bug: An OR condition across two differently indexed columns often prevents the DB optimizer from using indexes, causing a full table scan."
+	},
+	{
+		"id": 73,
+		"language": "SQL",
+		"code": "SELECT user_id, email\nFROM MailingList\nGROUP BY user_id, email;",
+		"expected": "Logical misuse: GROUP BY is meant for aggregation. Using it solely to remove duplicates is confusing and inefficient compared to SELECT DISTINCT."
+	},
+	{
+		"id": 74,
+		"language": "SQL",
+		"code": "BEGIN TRANSACTION;\nUPDATE Inventory SET stock = stock - 1 WHERE item_id = 5;\n-- End of script",
+		"expected": "Missing COMMIT or ROLLBACK. The transaction remains open indefinitely, locking the row and causing downstream deadlocks."
+	},
+	{
+		"id": 75,
+		"language": "SQL",
+		"code": "SELECT COALESCE(status_string, 0)\nFROM ApplicationState;",
+		"expected": "Data type mismatch: COALESCE requires compatible data types. Defaulting a VARCHAR column to an INT 0 causes conversion failures."
+	},
+	{
+		"id": 76,
+		"language": "DSA",
+		"code": "def binary_search(arr, target):\n    low, high = 0, len(arr) - 1\n    while low <= high:\n        mid = (low + high) // 2\n        if arr[mid] < target:\n            low = mid\n        elif arr[mid] > target:\n            high = mid - 1\n        else:\n            return mid\n    return -1",
+		"expected": "Infinite loop: when low and high are adjacent, mid equals low. If arr[mid] < target, 'low = mid' makes no progress. It must be 'low = mid + 1'."
+	},
+	{
+		"id": 77,
+		"language": "DSA",
+		"code": "def evaluate_postfix(tokens):\n    stack = []\n    for t in tokens:\n        if t.isdigit(): stack.append(int(t))\n        else: \n            a, b = stack.pop(), stack.pop()\n            stack.append(apply_op(t, b, a))\n    return stack.pop()",
+		"expected": "Missing bounds check: If the input tokens are malformed (e.g. too many operators), stack.pop() is called on an empty stack, causing an IndexError."
+	},
+	{
+		"id": 78,
+		"language": "DSA",
+		"code": "def bubble_sort(arr):\n    n = len(arr)\n    for i in range(n):\n        for j in range(n):\n            if arr[j] > arr[j + 1]:\n                arr[j], arr[j + 1] = arr[j + 1], arr[j]\n    return arr",
+		"expected": "Index out of bounds: the inner loop iterates up to n-1, so arr[j+1] attempts to access an index outside the array boundaries."
+	},
+	{
+		"id": 79,
+		"language": "DSA",
+		"code": "def bfs_traversal(start_node):\n    queue = [start_node]\n    visited = set([start_node])\n    while queue:\n        curr = queue.pop(0)\n        for neighbor in curr.neighbors:\n            if neighbor not in visited:\n                visited.add(neighbor)\n                queue.append(neighbor)",
+		"expected": "Performance bug: using pop(0) on a standard Python list takes O(n) time, making the queue operations O(V^2) instead of O(V). Use collections.deque."
+	},
+	{
+		"id": 80,
+		"language": "DSA",
+		"code": "def custom_hash(string_key):\n    hash_val = 0\n    for char in string_key:\n        hash_val += ord(char)\n    return hash_val % 10",
+		"expected": "High collision rate: using only modulo 10 groups all permutations of strings with similar sums into only 10 buckets, destroying constant-time lookup."
+	},
+	{
+		"id": 81,
+		"language": "DSA",
+		"code": "def print_linked_list(head):\n    curr = head\n    while curr.next:\n        print(curr.val)\n        curr = curr.next",
+		"expected": "Logic bug: The while condition 'curr.next' terminates early, failing to process/print the very last node in the linked list."
+	},
+	{
+		"id": 82,
+		"language": "DSA",
+		"code": "def dijkstra(graph, start):\n    dist = {n: float('inf') for n in graph}\n    dist[start] = 0\n    # ... priority queue extraction ...\n        for neighbor, weight in graph[curr]:\n            if dist[curr] + weight < dist[neighbor]:\n                dist[neighbor] = dist[curr] + weight",
+		"expected": "Algorithm flaw: Dijkstra's greedy assumption fails on graphs with negative edge weights, resulting in incorrect shortest paths. Use Bellman-Ford."
+	},
+	{
+		"id": 83,
+		"language": "DSA",
+		"code": "def knapsack_01(weights, values, capacity):\n    dp = [0] * (capacity + 1)\n    for i in range(len(weights)):\n        for w in range(weights[i], capacity + 1):\n            dp[w] = max(dp[w], dp[w - weights[i]] + values[i])\n    return dp[capacity]",
+		"expected": "Iterating forwards in the inner loop solves the Unbounded Knapsack problem (items can be reused). For 0/1 Knapsack, the loop must iterate backwards."
+	},
+	{
+		"id": 84,
+		"language": "DSA",
+		"code": "def tree_diameter(root):\n    def max_depth(node):\n        if not node: return 0\n        return 1 + max(max_depth(node.left), max_depth(node.right))\n    if not root: return 0\n    return max_depth(root.left) + max_depth(root.right)",
+		"expected": "The longest path (diameter) does not necessarily pass through the root node. It calculates only the root-centric diameter, missing longer internal paths."
+	},
+	{
+		"id": 85,
+		"language": "DSA",
+		"code": "def quicksort(arr):\n    if len(arr) <= 1: return arr\n    pivot = arr[0]\n    left = [x for x in arr[1:] if x <= pivot]\n    right = [x for x in arr[1:] if x > pivot]\n    return quicksort(left) + [pivot] + quicksort(right)",
+		"expected": "Performance bug: Choosing the first element as the pivot degrades to O(n^2) worst-case time complexity if the array is already sorted."
+	},
+	{
+		"id": 86,
+		"language": "DSA",
+		"code": "def has_cycle_directed(graph):\n    visited = set()\n    def dfs(node):\n        visited.add(node)\n        for neighbor in graph[node]:\n            if neighbor in visited: return True\n            if dfs(neighbor): return True\n        return False",
+		"expected": "Algorithm bug: In a directed graph, finding a 'visited' node doesn't imply a cycle (it could be a cross-edge). Needs a separate 'recursion_stack' set."
+	},
+	{
+		"id": 87,
+		"language": "DSA",
+		"code": "import heapq\nclass Job:\n    def **init**(self, id, duration):\n        self.id = id\n        self.duration = duration\npq = []\nheapq.heappush(pq, (5, Job(1, 10)))\nheapq.heappush(pq, (5, Job(2, 20)))",
+		"expected": "TypeError: When heap priorities are equal, heapq attempts to compare the second elements (Job). Since Job lacks **lt**, this crashes."
+	},
+	{
+		"id": 88,
+		"language": "DSA",
+		"code": "def max_sliding_window(arr, k):\n    max_sum = 0\n    window_sum = sum(arr[:k])\n    for i in range(k, len(arr)):\n        window_sum += arr[i] - arr[i-k]\n        max_sum = max(max_sum, window_sum)\n    return max_sum",
+		"expected": "Logic bug: It updates max_sum starting from the second window, completely failing to evaluate and compare the sum of the initial window."
+	},
+	{
+		"id": 89,
+		"language": "DSA",
+		"code": "def find_root(parent, i):\n    if parent[i] == i:\n        return i\n    return find_root(parent, parent[i])",
+		"expected": "Performance bug: Missing path compression. Trees can devolve into linked lists, changing the time complexity of find from nearly O(1) to O(N)."
+	},
+	{
+		"id": 90,
+		"language": "DSA",
+		"code": "def topological_sort(graph, in_degree):\n    queue = [n for n in graph if in_degree[n] == 0]\n    result = []\n    while queue:\n        curr = queue.pop(0)\n        result.append(curr)\n        for neighbor in graph[curr]:\n            in_degree[neighbor] -= 1\n            if in_degree[neighbor] == 0: queue.append(neighbor)\n    return result",
+		"expected": "Silent failure on cyclic graphs: Kahn's algorithm returns a partial result if a cycle exists. It must verify if len(result) == len(graph)."
+	},
+	{
+		"id": 91,
+		"language": "DSA",
+		"code": "def schedule_intervals(intervals):\n    intervals.sort(key=lambda x: x[0])\n    count = 0\n    last_end = float('-inf')\n    for start, end in intervals:\n        if start >= last_end:\n            count += 1\n            last_end = end\n    return count",
+		"expected": "Algorithm mistake: Greedy interval scheduling requires sorting by end time (x[1]), not start time, to maximize the number of non-overlapping intervals."
+	},
+	{
+		"id": 92,
+		"language": "DSA",
+		"code": "def update_segment_tree(tree, node, start, end, idx, val):\n    if start == end:\n        tree[node] = val\n        return\n    mid = (start + end) // 2\n    if start <= idx <= mid: update_segment_tree(tree, 2*node, start, mid, idx, val)\n    else: update_segment_tree(tree, 2*node+1, mid+1, end, idx, val)",
+		"expected": "Missing parent recalculation: After updating the child leaf, the function fails to update tree[node] = tree[2*node] + tree[2*node+1] on the way up."
+	},
+	{
+		"id": 93,
+		"language": "DSA",
+		"code": "def rolling_hash(string):\n    hash_value = 0\n    for char in string:\n        hash_value = hash_value * 31 + ord(char)\n    return hash_value",
+		"expected": "Integer overflow / memory issue: Missing a modulo operator (e.g., % 1000000007). In statically typed languages it overflows; in Python it slows down massively."
+	},
+	{
+		"id": 94,
+		"language": "DSA",
+		"code": "def bellman_ford(graph, num_vertices, source):\n    dist = [float('inf')] * num_vertices\n    dist[source] = 0\n    for _ in range(num_vertices - 1):\n        for u, v, w in graph.edges:\n            if dist[u] + w < dist[v]:\n                dist[v] = dist[u] + w\n    return dist",
+		"expected": "Algorithm flaw: It misses the final check (the V-th iteration) required to detect negative weight cycles, blindly returning invalid shortest paths."
+	},
+	{
+		"id": 95,
+		"language": "DSA",
+		"code": "def backtrack_permutations(current_path, options, results):\n    if not options:\n        results.append(list(current_path))\n        return\n    for i in range(len(options)):\n        current_path.append(options[i])\n        backtrack_permutations(current_path, options[:i] + options[i+1:], results)",
+		"expected": "State pollution: Missing the current_path.pop() statement after the recursive call, which corrupts the shared path list for subsequent branches."
+	},
+	{
+		"id": 96,
+		"language": "DSA",
+		"code": "def a_star_search(start, goal):\n    def heuristic(node, target):\n        return abs(node.x - target.x) * 1000 + abs(node.y - target.y) * 1000\n    # ... priority queue logic ...",
+		"expected": "Algorithm flaw: The heuristic overestimates the distance (inadmissible). This breaks A*'s guarantee of finding the optimal shortest path."
+	},
+	{
+		"id": 97,
+		"language": "DSA",
+		"code": "def delete_from_trie(root, word):\n    curr = root\n    for char in word:\n        if char not in curr.children: return False\n        curr = curr.children[char]\n    curr.is_end_of_word = False\n    return True",
+		"expected": "Memory leak: Soft deletion just toggles the boolean. If the word has no sharing branches, dead nodes remain in memory. It should recursively prune them."
+	},
+	{
+		"id": 98,
+		"language": "DSA",
+		"code": "def kruskal_mst(edges, num_vertices):\n    mst = []\n    parent = [i for i in range(num_vertices)]\n    for u, v, w in edges:\n        if find(parent, u) != find(parent, v):\n            union(parent, u, v)\n            mst.append((u, v, w))\n    return mst",
+		"expected": "Algorithm flaw: Kruskal's algorithm requires processing edges in ascending order of weight. It fails because edges.sort(key=lambda x: x[2]) is missing."
+	},
+	{
+		"id": 99,
+		"language": "DSA",
+		"code": "def longest_palindromic_subseq(s):\n    n = len(s)\n    dp = [[0] * n for _ in range(n)]\n    for i in range(n):\n        for j in range(i, n):\n            if s[i] == s[j]: dp[i][j] = 2 + dp[i+1][j-1]\n            else: dp[i][j] = max(dp[i+1][j], dp[i][j-1])\n    return dp[0][n-1]",
+		"expected": "Dependency violation: Iterating i forwards means dp[i+1] has not been computed yet. For interval DP, the outer loop must iterate backwards."
+	},
+	{
+		"id": 100,
+		"language": "DSA",
+		"code": "def union_by_rank(parent, rank, i, j):\n    root_i = find(parent, i)\n    root_j = find(parent, j)\n    if root_i != root_j:\n        parent[root_i] = root_j\n        rank[root_j] += 1",
+		"expected": "Rank logic error: The rank should only be incremented if the two trees were previously of equal rank. Unconditional increment creates skewed trees."
+	}
+]
