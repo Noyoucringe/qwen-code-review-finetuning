@@ -1,5 +1,4 @@
 # AI Code Reviewer - LoRA Fine-Tuning Project
-<img width="228" height="510" alt="image" src="https://github.com/user-attachments/assets/4f106ac2-a026-4dab-a4d8-51bddee53ec7" />
 
 ## Overview
 
